@@ -81,6 +81,9 @@
 								<div class="card mb-0">
 									<div class="card-body">
 										<div class="promo-big mb-15 left-0">
+											<img
+												src="${pageContext.request.contextPath}/assets/images/placeholder-mini.jpg"
+												alt="" class="promo-box-image circle mb-25 raised-xs">
 											<h2 class="page-title mb-10">
 												<c:out value="${user.nickName}" />
 											</h2>
@@ -101,6 +104,9 @@
 												<li class="mb-15"><i class="fas fa-star va-middle mr-5"></i>
 													<span class="va-middle"></span>이메일 : <c:out
 														value="${user.email}" /></li>
+												<li class="mb-15"><i class="fas fa-star va-middle mr-5"></i>
+													<span class="va-middle"></span>포인트 : <c:out
+														value="${user.point}" /></li>
 												<li class="mb-15"><i class="fas fa-star va-middle mr-5"></i>
 													<span class="va-middle">등급 :</span> <c:choose>
 														<c:when test="${user.userStatus == 1}">관리자</c:when>

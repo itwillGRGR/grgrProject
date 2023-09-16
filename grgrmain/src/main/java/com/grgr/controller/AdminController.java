@@ -39,7 +39,7 @@ public class AdminController {
 	    String userListJson = gson.toJson(map.get("userList"));
 	    model.addAttribute("userListJson", userListJson);
 		
-        return "admin/admin-list"; 
+        return "admin/user-list"; 
     }
     
  	/* 관리자 - 회원 정보 수정*/
@@ -53,7 +53,5 @@ public class AdminController {
             return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    /* 관리자 - 신고 게시글 조회*/
 
 }

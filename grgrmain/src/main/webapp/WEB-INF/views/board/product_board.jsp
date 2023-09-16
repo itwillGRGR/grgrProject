@@ -146,23 +146,18 @@
 							Reviews)</span>
 					</p>
 
-
 					<div class="form-cart">
 						<div
 							class="input-group input-w-overlap-btn mb-0 md-input-group sm-input">
-							<input type="number" step="1" min="1" max="10" name="cart"
-								value="1" title="qty" class="form-control qty mr-10 rounded"
-								id="quantityInput"> <span class="input-group-btn">
-								<button class="btn btn-primary rounded" type="button"
-									id="addToCartBtn">
-									<i class="fas fa-shopping-cart mr-5"></i> <span>장바구니 담기</span>
+							<input type="number" step="1" min="0" name="cart" value="1"
+								title="Qty" class="form-control qty mr-10 rounded"> <span
+								class="input-group-btn">
+								<button class="btn btn-primary rounded" type="button">
+									<i class="fas fa-shopping-cart mr-5"></i> <span>Buy Now</span>
 								</button>
-							</span> <a
-								href="<c:url value='/cart/list?uno=${sessionScope.loginUno}' />"
-								class="btn btn-xs btn-primary pill"
-								style="float: right; font-size: 15px"><span>장바구니 이동</span></a>
+							</span>
 						</div>
-						
+						<!-- / input-group -->
 					</div>
 
 					<c:if
@@ -631,7 +626,7 @@
 	</script>
 
 	<script>
-	$(document).ready(function() {
+		$(document).ready(function() {
 			if (Modernizr.touch) {
 				// show the close overlay button
 				$('.close-overlay').removeClass('hidden');
@@ -661,66 +656,6 @@
 			}
 		});
 	</script>
-
-
-	<%--
-    // minInput과 maxInput 요소 가져오기
-    const quantityInput = document.getElementById("quantityInput");
-
-    // minInput과 maxInput 요소의 값을 productStock으로 설정
-    quantityInput.min = "5"; // 최소값은 1로 설정
-    quantityInput.max = "20"; // 최대값은 productStock 값으로 설정
-</script>
---%>
-	<!-- JavaScript 코드 -->
-
-	<script>
-    $(document).ready(function() {
-        $("#addToCartBtn").on("click", function() {
-            const productId = ${productBoard.productId}
-            const productCount = parseInt($(".qty").val()); // 수량 입력 필드의 값 적용
-            let loginUno;
-            loginUno = ${sessionScope.loginUno};
-            
-            // 수량 체크
-            if (productCount > 10) {
-                alert("최대 가능 수량은 " + 10 + " 개 입니다.");
-                return; // 등록 X
-            }
-            
-            // 공백 체크
-             if (!productCount || isNaN(productCount)) {
-                alert("수량을 입력하세요.");
-                return; // 등록 X
-            }
-            // AJAX 요청
-            $.ajax({
-                url: '/cart/add',
-                type: 'POST',
-                data: {
-                    productId: productId,
-                    uno: loginUno,
-                    productCount: productCount
-                },
-                success: function(result) {
-                    
-                    if (result === '1') {
-                        alert("장바구니에 추가되었습니다.");
-                    } else if (result === '2') {
-                        alert("장바구니에 이미 추가되어 있습니다.");
-                    } else {
-                        alert("장바구니에 추가를 하지 못하였습니다.");
-                    }
-                },	
-                error: function() {
-                	
-                    alert("오류가 발생하였습니다.");
-                }
-            });
-        });
-    });
-</script>
-
 
 </body>
 </html>

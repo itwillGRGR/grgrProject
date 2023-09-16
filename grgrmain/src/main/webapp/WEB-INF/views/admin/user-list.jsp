@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -27,40 +26,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 
 <style>
-/* 페이저 스타일 */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-}
-
-.pagination li {
-    margin: 0 5px;
-    display: inline-block;
-}
-
-.pagination a {
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #333;
-    border-radius: 5px;
-}
-
-.pagination a:hover {
-    background-color: #333;
-    color: #fff;
-}
-.table-container {
-    
-    display: flex;
-    justify-content: center;
-    
-  }
 th, td {
 	text-align: center;
 	padding: 8px; /* 셀 내부 패딩 값 조절 */
@@ -68,44 +33,37 @@ th, td {
 .custom-margin{
 	margin-botom:100px;
 }
-
-.free-image-size {
-	width: 100px !important;
-	height: 100px !important;
-}
-
-.card-body {
-	padding: 0;
-}
-table.table-xl th,
-  table.table-xl td {
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  /* 테이블 행 간격 조정 */
-  table.table-xl tbody tr {
-    margin-bottom: 10px;
-    }
-  
 </style>
 </head>
-<body  style="background-color: white">
-	<jsp:include page="/WEB-INF/views/tiles/header.jsp" />
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>&emsp;&emsp;&emsp;&emsp;
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;header</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<ul>
+					<li class="list-item">회원관리</li>
+					<li class="list-item">주문 관리</li>
+					<li class="list-item">공지글 관리</li>
+					<li class="list-item">신고 글 관리</li>
+					<li class="list-item">문의 게시판</li>
+				</ul>
+			</div>
 			<div class="col-md-10">
 				<div class="row">
 					<div class="col-md-12">
 						<h1>회원 목록</h1>
-						
-						<hr>
 					</div>
 				</div>
 
-				<div class="table-container">
-				<table class="table table-xl">
-					<thead class="thead-light">
+				<table class="table1">
 					<tr>
-						<th width="100"  >회원번호</th>
+						<th width="100">회원번호</th>
 						<th width="100">이름</th>
 						<th width="100">닉네임</th>
 						<th width="100">아이디</th>
@@ -120,12 +78,11 @@ table.table-xl th,
 						<th width="100">수정 날짜</th>
 						<th width="100">최근 수정 회원</th>
 					</tr>
-					</thead>
 					<!-- 게시글 목록 출력 -->
 					<c:forEach var="user" items="${userList}">
 						<tr>
-							<td  width="100">${user.uno }</td>
-							<td width="100" class="user-name-cell"
+							<td align="center">${user.uno }</td>
+							<td align="center" class="user-name-cell"
 								data-user-id="${user.uno}">${user.userName}</td>
 							<td align="center">${user.nickName }</td>
 							<td align="center">${user.userId }</td>
@@ -142,47 +99,49 @@ table.table-xl th,
 						</tr>
 					</c:forEach>
 				</table>
-				</div>
+
 				<!-- 페이지 번호 출력 - 링크 제공 -->
-				<div class="pagination">
-    <c:choose>
-        <c:when test="${pager.startPage > pager.blockSize }">
-            <a href="<c:url value="user-list"/>?pageNum=${pager.prevPage}" class="page-link">이전</a>
-        </c:when>
-        <c:otherwise>
-            <span class="page-link">이전</span>
-        </c:otherwise>
-    </c:choose>
+				<c:choose>
+					<c:when test="${pager.startPage > pager.blockSize }">
+						<a href="<c:url value="user-list"/>?pageNum=${pager.prevPage}">[이전]</a>
+					</c:when>
+					<c:otherwise>
+                    [이전]
+                </c:otherwise>
+				</c:choose>
 
-    <c:forEach var="i" begin="${pager.startPage }" end="${pager.endPage }" step="1">
-        <c:choose>
-            <c:when test="${pager.pageNum != i  }">
-                <a href="<c:url value="user-list"/>?pageNum=${i}" class="page-link">${i }</a>
-            </c:when>
-            <c:otherwise>
-                <span class="page-link">${i }</span>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
+				<c:forEach var="i" begin="${pager.startPage }"
+					end="${pager.endPage }" step="1">
+					<c:choose>
+						<c:when test="${pager.pageNum != i  }">
+							<a href="<c:url value="user-list"/>?pageNum=${i}">[${i }]</a>
+						</c:when>
+						<c:otherwise>
+                        [${i }]
+                    </c:otherwise>
+					</c:choose>
+				</c:forEach>
 
-    <c:choose>
-        <c:when test="${pager.endPage != pager.totalPage }">
-            <a href="<c:url value="user-list"/>?pageNum=${pager.nextPage}" class="page-link">다음</a>
-        </c:when>
-        <c:otherwise>
-            <span class="page-link">다음</span>
-        </c:otherwise>
-    </c:choose>
-</div>
-
+				<c:choose>
+					<c:when test="${pager.endPage != pager.totalPage }">
+						<a href="<c:url value="user-list"/>?pageNum=${pager.nextPage}">[다음]</a>
+					</c:when>
+					<c:otherwise>
+                    [다음]
+                </c:otherwise>
+				</c:choose>
 			</div>
 		</div>
-		
+		<div class="row">
+			<div class="col-md-12">
+				<h1>footer</h1>
+			</div>
+		</div>
 	</div>
-<hr>
+
 	<!-- Modal -->
 	<div class="modal fade" id="userModal" tabindex="-1" role="dialog"
-		aria-labelledby="userModalLabel" aria-hidden="true">
+		aria-labelledby="userModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -253,37 +212,6 @@ table.table-xl th,
 		</div>
 	</div>
 
-<div class="col-md-10">
-				<div class="row">
-					<div class="col-md-12">
-						<h1>신고 게시글 조회</h1>
-						<hr>
-					</div>
-				</div>
-
-
-	<!-- 위로 버튼 -->
-	<a href="#top" class="scroll-to-top smooth-scroll"
-		data-nav-status="toggle"><i class="fas fa-chevron-up"></i></a>
-	<jsp:include page="/WEB-INF/views/tiles/footer.jsp" />
-
-	<!-- core JavaScript -->
-	<script
-		src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-	<!-- / core JavaScript -->
-
-	<!-- preloader -->
-	<script src="${pageContext.request.contextPath}/assets/js/preloader.js"></script>
-	<!-- / preloader -->
-
-	<!-- hide nav -->
-	<script src="${pageContext.request.contextPath}/assets/js/hide-nav.js"></script>
-	<!-- / hide nav -->
-	
 	<script type="text/javascript">
     var userList = ${userListJson};
 
@@ -358,7 +286,7 @@ table.table-xl th,
                     
                     $.ajax({
                         type: 'POST',
-                        url: "<c:url value="admin/admin/user-update"/>",
+                        url: '/admin/user-update',
                         contentType: 'application/json',
                         data: JSON.stringify(editedUser),
                         success: function(response) {
@@ -378,15 +306,6 @@ table.table-xl th,
             }
         });
     });
-</script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-$(document).ready(function() {
-    
-    $(".modal-content").draggable({
-        handle: ".modal-header" // 드래그 핸들로 모달 헤더를 사용
-    });
-});
 </script>
 </body>
 </html>

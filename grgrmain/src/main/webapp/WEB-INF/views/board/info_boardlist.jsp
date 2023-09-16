@@ -89,10 +89,9 @@
 
 				<ul class="list-inline text-center mb-30">
 
-					<li><a href="<c:url value='/infoboard/list'/>"
-						class="btn btn-outline-primary m-y-10 mr-10">
-							${loginUserStatus == 1 ? '관리자' : pager.searchCondition.loginLocation}
-					</a></li>
+					<li><a href="<c:url value="/infoboard/list"/>"
+						class="btn btn-outline-primary m-y-10 mr-10">${pager.searchCondition.loginLocation}</a></li>
+					<!-- ${userInfo_Loc} -->
 					<li id="keyword-button"><a
 						href="<c:url value="/infoboard/list?keyword=food"/>"
 						class="btn btn-outline-primary m-y-10 mr-10">맛집후기</a></li>
@@ -161,65 +160,59 @@
 						class="fas fa-edit mr-10"></span> <span style="font-size: 20px">글쓰기</span></a>
 				</div>
 
-				<div>
-					<ul class="row portfolio project-grid lightbox list-unstyled mb-0"
-						id="grid" style="clear: both">
-						<!-- project : 게시글 list 출력 -->
-						<c:set var="i" value="0" />
-						<c:forEach items="${infoBoardList}" var="infoBoard">
-							<li class="col-md-12 col-lg-0 project"><a
-								href="<c:url value='/infoboard/read${pager.searchCondition.getQueryString()}&infoBno=${infoBoard.infoBno}'/>">
-									<div class="promo-box">
-										<div class="cta p-0">
-											<div class="row v-center">
-												<div class="col-lg-2 tablet-lg-top-30 tablet-lg-center">
-													<img
-														src="${pageContext.request.contextPath}/upload/${fileList[i]}"
-														alt="Thumbnail" class="rounded" />
-													<c:set var="i" value="${i+1 }" />
-												</div>
-												<!-- / column -->
-												<div class="col-lg-10 text-left tablet-lg-center">
-													<p class="mb-20">${infoBoard.infoTitle}</p>
-													<p class="lead mb-20">${infoBoard.infoContent}&nbsp;&nbsp;...</p>
+<div>
+    <ul class="row portfolio project-grid lightbox list-unstyled mb-0" id="grid" style="clear: both">
+        <!-- project : 게시글 list 출력 -->
+        <c:set var="i" value="0" />
+        <c:forEach items="${infoBoardList}" var="infoBoard">
+            <li class="col-md-12 col-lg-0 project">
+                <a href="<c:url value='/infoboard/read${pager.searchCondition.getQueryString()}&infoBno=${infoBoard.infoBno}'/>">
+                    <div class="promo-box">
+                        <div class="cta p-0">
+                            <div class="row v-center">
+                                <div class="col-lg-2 tablet-lg-top-30 tablet-lg-center">
+                                    <img src="${pageContext.request.contextPath}/upload/${fileList[i]}" alt="Thumbnail" class="rounded" />
+                                    <c:set var="i" value="${i+1 }" />
+                                </div>
+                                <!-- / column -->
+                                <div class="col-lg-10 text-left tablet-lg-center">
+                                    <p class="mb-20">${infoBoard.infoTitle}</p>
+                                    <p class="lead mb-20">${infoBoard.infoContent}&nbsp;&nbsp;...</p>
 
-													<!-- 조회수 -->
-													<div class="viewCnt">
-														<p class="d-inline-block va-middle "
-															style="margin-bottom: 0">
-															<span class="text-sm text-info">조회수 : </span> <span
-																class="timer va-middle" id="count-inline-three"
-																data-to="1155" data-speed="3000">${infoBoard.infoViewCnt }</span>
-														</p>
-													</div>
+                                    <!-- 조회수 -->
+                                    <div class="viewCnt">
+                                    <p class="d-inline-block va-middle " style="margin-bottom:0">
+                                        <span class="text-sm text-info">조회수 : </span>
+                                        <span class="timer va-middle" id="count-inline-three" data-to="1155" data-speed="3000">${infoBoard.infoViewCnt }</span>
+                                    </p></div>
 
-													<!-- 닉네임, 등록일, 키워드 -->
-													<p class="fs-16 post-meta-small mb-0"
-														style="display: block; text-align: right;">
-														<i class="fas fa-user mr-5"></i>${infoBoard.nickname} <span
-															class="m-x-10 text-muted">|</span> <i
-															class="far fa-calendar-alt mr-5"></i>${infoBoard.infoRegdate}
-														<span class="m-x-10 text-muted">|</span> <i
-															class="fas fa-tag mr-10"></i>
-														<c:choose>
-															<c:when test="${infoBoard.infoKeyword=='food'}">맛집</c:when>
-															<c:when test="${infoBoard.infoKeyword=='market'}">기타 후기</c:when>
-															<c:when test="${infoBoard.infoKeyword=='living'}">생활정보</c:when>
-															<c:when test="${infoBoard.infoKeyword=='crew'}">모임 / 구인</c:when>
-															<c:otherwise>이벤트</c:otherwise>
-														</c:choose>
-													</p>
-												</div>
-												<!-- / column -->
-											</div>
-											<!-- / row -->
-										</div>
-										<!-- / cta -->
-									</div> <!-- / promo-box -->
-							</a></li>
-						</c:forEach>
-					</ul>
-				</div>
+                                    <!-- 닉네임, 등록일, 키워드 -->
+                                    <p class="fs-16 post-meta-small mb-0" style="display: block; text-align: right;">
+                                        <i class="fas fa-user mr-5"></i>${infoBoard.nickname} 
+                                        <span class="m-x-10 text-muted">|</span> 
+                                        <i class="far fa-calendar-alt mr-5"></i>${infoBoard.infoRegdate}
+                                        <span class="m-x-10 text-muted">|</span> 
+                                        <i class="fas fa-tag mr-10"></i>
+                                        <c:choose>
+                                            <c:when test="${infoBoard.infoKeyword=='food'}">맛집</c:when>
+                                            <c:when test="${infoBoard.infoKeyword=='market'}">기타 후기</c:when>
+                                            <c:when test="${infoBoard.infoKeyword=='living'}">생활정보</c:when>
+                                            <c:when test="${infoBoard.infoKeyword=='crew'}">모임 / 구인</c:when>
+                                            <c:otherwise>이벤트</c:otherwise>
+                                        </c:choose>
+                                    </p>
+                                </div>
+                                <!-- / column -->
+                            </div>
+                            <!-- / row -->
+                        </div>
+                        <!-- / cta -->
+                    </div> <!-- / promo-box -->
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
 
 				<!-- / container -->
 

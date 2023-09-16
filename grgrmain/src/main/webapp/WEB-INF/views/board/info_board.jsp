@@ -376,55 +376,6 @@
 	    }
 	</script>
 	
-	<!-- 좋아요 기능 -->
-	<script>
-	//좋아요 상태 check
-	function checkLikedStatus(infoBno){
-		console.log("infoBno:"+infoBno)
-		$.ajax({
-			type : 'GET', 
-			url : "<c:url value="/infolike/status"/>/"+ infoBno, // infoBno 값을 경로에 포함시킵니다.
-			success : function(data) {
-				
-				if(data.isLiked){
-					 $("#like-button img").attr("src", "<c:url value='/images/heart_full.png'/>");
-				}else {
-	                $("#like-button img").attr("src", "<c:url value='/images/heart.png'/>");
-	            }
-				 $("#like-button span").text(data.likeCnt);
-			},
-			error : function(err) {
-				
-				console.error("좋아요 상태 파악에 실패하였습니다.", err);
-			}
-		});	
-	}
-	
-    // 좋아요 버튼 클릭
-    $("#like-button").click(function(){
-    	$.ajax({
-    		type: 'post',
-    		url: "<c:url value="/infolike/toggle"/>/"+infoBno,
-    		success: function(data){
-    			if(data.isLiked){
-					 $("#like-button img").attr("src", "<c:url value='/images/heart_full.png'/>");
-					 
-				} else {
-	                $("#like-button img").attr("src", "<c:url value='/images/heart.png'/>");
-	            }
-    			
-    			 $("#like-button span").text(data.likeCnt);
-    		},
-    		error: function(err) {
-                console.error("좋아요버튼 오류입니다.", err);
-            }
-    		
-    	});
-    	
-    });
-	
-	</script>
-	
 	<!-- 댓글기능 관련 스크립트  -->
 	<script>
 		const url = new URL(window.location.href);
@@ -520,7 +471,7 @@
 					html += '<p class="mb-0 comment-style" style="padding: 0px 30px 10px 100px;">ㄴ'	+ comment.infoCommentContent;
 					html += '<span id="comment-select" style="float: right;">';				
 					if (comment.uno === loginUno) {
-						//html += '<a href="#x" class="cwomment-modify"> <i class="far fa-comments fs-15 mr-5"></i>변경</a>';
+						//html += '<a href="#x" class="comment-modify"> <i class="far fa-comments fs-15 mr-5"></i>변경</a>';
 						html += '<a href="#x" class="comment-remove"> <i class="far fa-comments fs-15 mr-5"></i>삭제</a>';
 					}
 					if (loginUserStatus === 1) {
@@ -590,11 +541,32 @@
 		}
 		
 		function resetReplyForm() {
-		    //$("#comment-reply").hide(); // 대댓글 폼을 숨김
-		    $("#comment-reply").appendTo("#my-section"); // 대댓글 폼을 원래 위치로
+		    //$("#comment-reply").hide(); // 대댓글 폼을 숨깁니다.
+		    $("#comment-reply").appendTo("#my-section"); // 대댓글 폼을 원래 위치로 되돌립니다.
 		    $("#comment-reply").val("");
 		}
 		
+		//좋아요 상태 check
+		function checkLikedStatus(infoBno){
+			console.log("infoBno:"+infoBno)
+			$.ajax({
+				type : 'GET', 
+				url : "<c:url value="/infolike/status"/>/"+ infoBno, // infoBno 값을 경로에 포함시킵니다.
+				success : function(data) {
+					
+					if(data.isLiked){
+						 $("#like-button img").attr("src", "<c:url value='/images/heart_full.png'/>");
+					}else {
+		                $("#like-button img").attr("src", "<c:url value='/images/heart.png'/>");
+		            }
+					 $("#like-button span").text(data.likeCnt);
+				},
+				error : function(err) {
+					
+					console.error("좋아요 상태 파악에 실패하였습니다.", err);
+				}
+			});
+		}
 		
 		//페이지 로드시 실행될 것들
 		$(document).ready(function() {
@@ -728,7 +700,28 @@
 		        });
 		    });
 		    
-
+		    // 좋아요 버튼 클릭
+		    $("#like-button").click(function(){
+		    	$.ajax({
+		    		type: 'post',
+		    		url: "<c:url value="/infolike/toggle"/>/"+infoBno,
+		    		success: function(data){
+		    			if(data.isLiked){
+							 $("#like-button img").attr("src", "<c:url value='/images/heart_full.png'/>");
+							 
+						} else {
+			                $("#like-button img").attr("src", "<c:url value='/images/heart.png'/>");
+			            }
+		    			
+		    			 $("#like-button span").text(data.likeCnt);
+		    		},
+		    		error: function(err) {
+		                console.error("좋아요버튼 오류입니다.", err);
+		            }
+		    		
+		    	});
+		    	
+		    });
 
 		});
 		
@@ -736,6 +729,7 @@
 		
 	</script>
 	
+	<!-- 좋아요 기능관련 스크립트 분리 -->
 	
 	
 

@@ -129,7 +129,7 @@
 										<span class="fab fa-facebook-f mr-5"></span> <span>Facebook</span>
 									</a> <a href="#x" class="btn btn-sm btn-outline-twitter mt-5">
 										<span class="fab fa-twitter mr-5"></span> <span>Twitter</span>
-									</a> <a href="<c:url value="/oauth/google"/>" class="btn btn-sm btn-outline-warning mt-5">
+									</a> <a href="#x" class="btn btn-sm btn-outline-warning mt-5">
 										<span class="fab fa-google mr-5"></span> <span>Google</span>
 									</a>
 								</div>

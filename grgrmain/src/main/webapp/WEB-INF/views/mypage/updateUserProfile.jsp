@@ -42,7 +42,7 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/tiles/header.jsp" />
+<jsp:include page="/WEB-INF/views/tiles/header.jsp" />
 	<div id="preloader">
 		<div class="preloader">
 			<span></span> <span></span>
@@ -51,18 +51,18 @@
 
 	<div id="top"></div>
 	<!-- / top -->
-	<!-- / navbar -->
-	<div class="container relative z-index-1">
-		<h1 class="page-title text-left mb-15">회원 정보 수정</h1>
-		<nav class="breadcrumb relative z-index-1 pt-10 pl-5">
-			<a class="breadcrumb-item"
-				href="${pageContext.request.contextPath}/main">Home</a> <a
-				class="breadcrumb-item"
-				href="/mypage/userProfile?uno=<c:out value="${user.uno}" />">마이
-				페이지</a><a class="breadcrumb-item">정보 수정</a>
-		</nav>
-	</div>
-	<!-- / container -->
+		<!-- / navbar -->
+		<div class="container relative z-index-1">
+			<h1 class="page-title text-left mb-15">회원 정보 수정</h1>
+			<nav class="breadcrumb relative z-index-1 pt-10 pl-5">
+				<a class="breadcrumb-item"
+					href="${pageContext.request.contextPath}/main">Home</a> <a
+					class="breadcrumb-item"
+					href="/mypage/userProfile?uno=<c:out value="${user.uno}" />">마이
+					페이지</a><a class="breadcrumb-item">정보 수정</a>
+			</nav>
+		</div>
+		<!-- / container -->
 	</header>
 
 	<section class="lg pb-60 page-section">
@@ -75,6 +75,9 @@
 								<div class="card mb-0">
 									<div class="card-body">
 										<div class="promo-big mb-15 left-0">
+											<img
+												src="${pageContext.request.contextPath}/assets/images/placeholder-mini.jpg"
+												alt="" class="promo-box-image circle mb-25 raised-xs">
 											<h2 class="page-title mb-10">
 												<c:out value="${user.nickName}" />
 											</h2>
@@ -130,6 +133,9 @@
 													class="form-control email_input" name="email"
 													placeholder="&#xf2bd; ${user.email }"
 													style="font-family: 'Font Awesome 5 Free', sans-serif !important; font-weight: 400"></li>
+												<li class="mb-15"><i class="fas fa-star va-middle mr-5"></i>
+													<span class="va-middle"></span>포인트 : <c:out
+														value="${user.point}" /></li>
 												<li class="mb-15"><i class="fas fa-star va-middle mr-5"></i>
 													<span class="va-middle">등급 :</span> <c:choose>
 														<c:when test="${user.userStatus == 1}">관리자</c:when>

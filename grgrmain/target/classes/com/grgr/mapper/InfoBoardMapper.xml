@@ -6,8 +6,6 @@
 0909 - 사진(파일) 삭제 매퍼 추가
  -->
 <mapper namespace="com.grgr.mapper.InfoBoardMapper">
-
-
 	<!-- 검색 조건문 -->
 	<!-- TC:제목+내용, T: 제목, W: 작성자, -->
 	<sql id="search">
@@ -27,13 +25,6 @@
 		</trim>
 	</sql>
 
-	<!-- 관리자일 경우 모든 위치의 글을 조회할 수 있는 권한을 주기위한 조건문 
-			관리자가 아닐시, 위치 조건을 추가함-->
-	<sql id="notAdmin">
-		<if test="loginUserStatus!=1">
-		I.INFO_LOC = #{infoLoc} AND</if>
-	</sql>
-	
 	<!-- 총게시글 수 -->
 	<select id="infoBoardCount" resultType="int">
 		SELECT COUNT(*)
@@ -41,7 +32,7 @@
 		JOIN USERINFO U ON I.UNO = U.UNO
 		WHERE
 		<include refid="search" />
-		<include refid="notAdmin"/> I.info_blindstate=1
+		I.info_Loc=#{infoLoc} AND I.info_blindstate=1
 		<if test="infoKeyword != null and infoKeyword != ''">
 			AND I.info_keyword = #{infoKeyword}
 		</if>
@@ -116,7 +107,7 @@
 		join USERINFO U on I.UNO = U.UNO
 		where
 		<include refid="search" />
-		<include refid="notAdmin"/> I.info_bno  &lt; #{infoBno} and I.info_blindstate = 1
+		I.info_Loc=#{infoLoc} and I.info_bno  &lt; #{infoBno} and I.info_blindstate = 1
 		<if test="infoKeyword != null and infoKeyword != ''">
 			and I.info_keyword = #{infoKeyword}
 		</if>
@@ -129,7 +120,7 @@
 		join USERINFO U on I.UNO = U.UNO
 		where
 		<include refid="search" />
-		<include refid="notAdmin"/> I.info_bno &gt; #{infoBno} and I.info_blindstate = 1
+		I.info_Loc=#{infoLoc} and I.info_bno &gt; #{infoBno} and I.info_blindstate = 1
 		<if test="infoKeyword != null and infoKeyword != ''">
 			and I.info_keyword = #{infoKeyword}
 		</if>
@@ -160,8 +151,7 @@
 		USERINFO U on I.UNO = U.UNO
 		WHERE
 		<include refid="search" />
-		<include refid="notAdmin"/>
-		 I.INFO_BLINDSTATE = 1
+		I.INFO_LOC = #{infoLoc} AND I.INFO_BLINDSTATE = 1
 		<if test="infoKeyword != null and infoKeyword != ''">
 			and I.info_keyword = #{infoKeyword}
 		</if>

@@ -7,10 +7,10 @@
 		INSERT INTO USERINFO(UNO, USER_NAME, USER_ID,
 		USER_PW, NICKNAME, PHONE, EMAIL, BUSINESS_NO, USER_STATUS)
 		VALUES(UNO_SEQ.NEXTVAL,
-		#{userName},#{userId}, #{userPw},
-		#{nickName},
-		#{phone}, #{email},
-		#{businessNo},2)
+		#{USERNAME},#{USERID}, #{USERPW},
+		#{NICKNAME},
+		#{PHONE}, #{EMAIL},
+		#{BUSINESSNO},2)
 	</insert>
 
 	<!-- 아이디 중복 검사 -->

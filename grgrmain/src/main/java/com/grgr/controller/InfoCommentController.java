@@ -51,7 +51,6 @@ public class InfoCommentController {
 		int loginUno = (int) session.getAttribute("loginUno");
 		infoComment.setUno(loginUno);
 		infoComment.setInfoBno(infoBno);
-		infoComment.setInfoCommentContent(HtmlUtils.htmlEscape(infoComment.getInfoCommentContent()));
 		infoCommentService.addInfoComment(infoComment);
 
 		return new ResponseEntity<String>("WRT_OK", HttpStatus.OK);

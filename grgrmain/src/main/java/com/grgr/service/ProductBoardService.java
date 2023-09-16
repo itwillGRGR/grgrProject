@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.grgr.dto.ProductBoardVO;
 import com.grgr.dto.ProductUserDTO;
 import com.grgr.exception.FileUploadFailException;
-import com.grgr.exception.NumberException;
 import com.grgr.exception.WriteNullException;
 import com.grgr.util.SearchCondition;
 
@@ -27,7 +26,7 @@ public interface ProductBoardService {
 
 	/* 게시판 등록 */
 	int addProduct(ProductBoardVO productBoard, List<MultipartFile> files)
-			throws WriteNullException, FileUploadFailException, NumberException, IOException;
+			throws WriteNullException, FileUploadFailException, IOException;
 
 	/* 게시판 수정 */
 	void modifyProduct(ProductBoardVO productBoard);

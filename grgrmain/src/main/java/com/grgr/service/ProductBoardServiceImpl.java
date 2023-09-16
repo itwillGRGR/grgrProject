@@ -17,7 +17,6 @@ import com.grgr.dto.ProductBoardVO;
 import com.grgr.dto.ProductFile;
 import com.grgr.dto.ProductUserDTO;
 import com.grgr.exception.FileUploadFailException;
-import com.grgr.exception.NumberException;
 import com.grgr.exception.WriteNullException;
 import com.grgr.util.Pager;
 import com.grgr.util.SearchCondition;
@@ -99,10 +98,9 @@ public class ProductBoardServiceImpl implements ProductBoardService {
 		return productBoardDAO.selectNextProductId(searchMap);
 	}
 
-	/* 상품 등록 */
 	@Override
 	public int addProduct(ProductBoardVO productBoard, List<MultipartFile> files)
-			throws WriteNullException, FileUploadFailException, NumberException, IOException {
+			throws WriteNullException, FileUploadFailException, IOException {
 
 		if (productBoard.getProductTitle() == null || productBoard.getProductContent() == null) {
 			throw new WriteNullException("상품의 제목과 내용을 입력해주세요.");

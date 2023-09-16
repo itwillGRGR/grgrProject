@@ -9,9 +9,4 @@ public class ErrorController {
 	public String handle404() {
 		return "404";
 	}
-	
-	@RequestMapping("/500")
-	public String handle500() {
-		return "500";
-	}
 }

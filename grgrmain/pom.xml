@@ -306,13 +306,6 @@
 		<!-- https://mvnrepository.com/artifact/com.weicoder.fork/jdom2-jdk11 -->
 
 
-	<!-- Google에서 제공하는 API 관련 라이브러리 -->
-		<dependency>
-    		 <groupId>com.google.api-client</groupId>
-     		<artifactId>google-api-client</artifactId>
-     		<version>1.32.1</version>
- 		  </dependency>
-
 	</dependencies>
 	<build>
 		<plugins>
