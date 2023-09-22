@@ -19,11 +19,15 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MainController {
 	private final MainPageService mainPageService;
+	private final NoticeBoardService noticeBoardService;
 
 	@RequestMapping("/main")
 	public String mainPage(Model model, HttpSession session) {
 		Map<String, Object> newPostWithFile = mainPageService.selectNewPost();
 		model.addAllAttributes(newPostWithFile);
+		NoticeBoard latestNotice = noticeBoardService.getLatestNotice();
+		session.setAttribute("latestNoticeBno",latestNotice.getNoticeBno());
+		session.setAttribute("latestNoticeTitle",latestNotice.getNoticeTitle());
 		return "/tiles/main";
 	}
 }

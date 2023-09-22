@@ -57,13 +57,13 @@ public class NoticeBoardController {
 		return "board/notice_board";
 	}
 	
-	@GetMapping("/latestNotice")
-	public String latestNotice(@RequestParam int noticeBno, Model model) {
-		NoticeBoard latestNotice = noticeBoardService.getLatestNotice();
-		model.addAttribute("latestNoticeNo",latestNotice.getNoticeBno());
-		
-		return "board/notice_board";	
-	}
+//	@GetMapping("/latestNotice")
+//	public String latestNotice(@RequestParam int noticeBno, Model model) {
+//		NoticeBoard latestNotice = noticeBoardService.getLatestNotice();
+//		model.addAttribute("latestNoticeNo",latestNotice.getNoticeBno());
+//		
+//		return "board/notice_board";	
+//	}
 
 	// 글쓰기 페이지 요청
 	@GetMapping(value = "/write")

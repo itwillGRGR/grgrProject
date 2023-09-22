@@ -42,8 +42,9 @@
 	rel="stylesheet" type="text/css">
 <style type="text/css">
 .card-body {
-	text-align: center; /* 텍스트 중앙 정렬 */
-	padding: 20px 50px; /* 상하 여백을 조정하여 내용 영역 크기를 줄임 */
+	text-align: center;
+	padding: 20px; /* 상하좌우 패딩을 일정하게 조정 */
+	height: 100%; /* 카드 내용을 상자 크기에 맞게 확장 */
 }
 
 /* 나머지 스타일은 이전과 동일하게 유지 */
@@ -62,7 +63,57 @@
 	border-radius: 10px;
 	font-size: 16px; /* 원하는 크기로 조정 */
 }
+
+.card-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	/* 최소 250px 크기의 그리드 셀로 설정 */
+	gap: 20px; /* Card 요소 사이의 간격 조절 */
+	margin-bottom: 20px; /* Card 컨테이너 아래 여백 추가 */
+}
+
+/* 제목 길이가 길 경우 말줄임 처리 */
+.product-title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 가격 영역의 스타일 조정 */
+.price-block {
+	font-weight: bold;
+	color: #007bff; /* 가격 색상을 원하는 색상으로 설정 */
+	margin-bottom: 10px; /* 아래 여백 추가 */
+}
+
+/* 상품 등록일 스타일 조정 */
+.product-regdate {
+	font-size: 14px; /* 원하는 크기로 조정 */
+}
+
+/* Buy Now 버튼 스타일 조정 */
+.product-card-footer {
+	margin-top: 10px; /* 위쪽 여백 추가 */
+}
+
+.card-body img {
+	max-width: 100%; /* 이미지의 최대 너비를 부모 요소에 맞게 설정 */
+	max-height: 100%; /* 이미지의 최대 높이를 부모 요소에 맞게 설정 */
+	width: auto; /* 가로 너비 자동 조정 */
+	height: auto; /* 세로 높이 자동 조정 */
+	display: block; /* 이미지를 블록 요소로 설정하여 가운데 정렬 */
+	margin: 0 auto; /* 이미지를 가로 중앙으로 정렬 */
+}
+
+.product-image {
+	max-width: 250px; /* 이미지의 최대 너비를 설정 (원하는 크기로 조절) */
+	max-height: 250px; /* 이미지의 최대 높이를 설정 (원하는 크기로 조절) */
+	width: auto; /* 가로 너비 자동 조정 */
+	height: auto; /* 세로 높이 자동 조정 */
+}
 </style>
+
+
 
 
 </head>
@@ -95,20 +146,6 @@
 
 
 				<section id="start" class="lg page-section">
-					<!-- <ul class="portfolio-filter list-inline text-center mb-30">
-			<li id="portfolio-filter-list"><a href="#">지역 : 강남구 </a></li>
-			<li id="portfolio-filter-list"><a href="#" data-group="all"
-				class="active ml-2">전체</a></li>
-			<li id="portfolio-filter-list"><a href="#" data-group="food">맛집후기</a>
-			</li>
-			<li id="portfolio-filter-list"><a href="#" data-group="market">동네후기</a>
-			</li>
-			<li id="portfolio-filter-list"><a href="#" data-group="living">생활정보</a>
-			</li>
-			<li id="portfolio-filter-list"><a href="#" data-group="event">이벤트</a>
-			</li>
-		</ul> -->
-
 					<!-- 검색 -->
 					<!-- select -->
 					<div class="card">
@@ -167,11 +204,14 @@
 									<c:set var="i" value="0" />
 									<c:forEach var="productBoardList" items="${productBoardList}">
 										<div class="col-sm-6 col-xl-3">
-											<div class="card">
-												<div class="full-height-cards card-body text-center p-y-30" style="">
+											<div class="card ">
+												<div class="full-height-cards card-body text-center p-y-30"
+													style="">
 													<img
 														src="${pageContext.request.contextPath}/upload/${fileList[i]}"
-														alt="Thumbnail" class="mb-30 rounded raised-sm">
+														alt="Thumbnail" class="mb-30 rounded raised-sm "
+														width="150" height="150">
+
 													<c:set var="i" value="${i+1 }" />
 													<p class="card-title product-title fs-20">
 														<a

@@ -116,6 +116,15 @@
 
 			<!-- / input-group -->
 			<c:if test="${loginUno==null}">
+			<div>
+					<h2>
+						<a
+							href="<c:url value='/noticeboard/read?noticeBno=${latestNoticeBno}'/>"
+							style="text-decoration: underline;"> <i
+							class="fas fa-bullhorn"></i> ${latestNoticeTitle}
+						</a>
+					</h2>
+				</div>
 				<ul class="navbar-button p-30 m-0 d-flex justify-content-between">
 					<li class="nav-item"><a href="<c:url value="/user/login"/>"
 						class="btn btn-sm btn-primary pill"> <i
@@ -148,9 +157,9 @@
 				<div>
 					<h2>
 						<a
-							href="<c:url value='/noticeboard/read?noticeBno=${latestNotice.noticeBno}'/>"
+							href="<c:url value='/noticeboard/read?noticeBno=${latestNoticeBno}'/>"
 							style="text-decoration: underline;"> <i
-							class="fas fa-bullhorn"></i> ${latestNotice.noticeTitle}
+							class="fas fa-bullhorn"></i> ${latestNoticeTitle}
 						</a>
 					</h2>
 				</div>

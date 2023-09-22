@@ -241,6 +241,7 @@
 		        var priceErrorMessage = "";
 		        var contentErrorMessage = "";
 		        var imgErrorMessage = "";
+		        var titleErrorMessage = "";
 		        
 		        if (isNaN(productPrice) || productPrice < 1 || productPrice > 500000000) {
 		            priceErrorMessage = '잘못된 형식의 가격입니다. 올바르게 입력해주세요.';
@@ -252,6 +253,12 @@
 	
 		        if (title.trim() === '' || content.trim() === '') {		         
 		            contentErrorMessage = '제목과 내용을 모두 입력해주세요.';		            
+		        }
+		        if (title.length > 25) {
+	                titleErrorMessage = '제목의 길이가 너무 깁니다.';
+	            }
+		        if (titleErrorMessage !== "") {
+		        	alert(titleErrorMessage);
 		        }
 		        
 		        if (contentErrorMessage !== "") {
@@ -266,7 +273,7 @@
 		            alert(imgErrorMessage);
 		        }
 
-		        if (contentErrorMessage === "" && imgErrorMessage === "" && priceErrorMessage === "") {
+		        if (contentErrorMessage === "" && imgErrorMessage === "" && priceErrorMessage === "" && titleErrorMessage === "") {
 					
 					 $.ajax({
 						type:'DELETE',

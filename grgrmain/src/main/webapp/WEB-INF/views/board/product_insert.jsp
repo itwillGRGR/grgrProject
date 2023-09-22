@@ -112,7 +112,9 @@
 							<input type="text" class="form-control" id="productTitle"
 								name="productTitle" placeholder="제목을 입력해주세요" required="true"
 								style="font-family: 'Font Awesome 5 Free', sans-serif !important; font-weight: 400"
-								aria-required="true">
+								aria-required="true"> <span id="error-message"
+								style="color: red;">${message}</span> <span
+								id="title-error-message" style="color: red; padding-left: 20px"></span>
 						</div>
 						<!-- / form-group -->
 					</div>
@@ -256,6 +258,12 @@
 
 											var contentErrorMessage = "";
 											var imgErrorMessage = "";
+											var titleErrorMessage = "";
+
+											if (title.length > 25) {
+												titleErrorMessage = '제목의 길이가 너무 깁니다.';
+											}
+											
 
 											if (title.trim() === ''
 													|| content.trim() === ''
@@ -295,6 +303,23 @@
 												}, 5000);
 											}
 
+											if (titleErrorMessage !== "") {
+												console
+														.log('title error not null');
+
+												document
+														.getElementById('title-error-message').textContent = titleErrorMessage;
+
+												$('#title-error-message')
+														.show();
+												console.log('title error show');
+
+												setTimeout(function() {
+													$('#title-error-message')
+															.fadeOut('slow');
+												}, 5000);
+											}
+
 											if (imgErrorMessage !== '') {
 												console
 														.log('img error not null');
@@ -310,7 +335,8 @@
 											}
 
 											if (contentErrorMessage === ""
-													&& imgErrorMessage === "") {
+													&& imgErrorMessage === ""
+													&& titleErrorMessage === "") {
 												document.getElementById(
 														'form-validation')
 														.submit(); // 폼을 제출
