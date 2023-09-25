@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.grgr.mapper.ProductBoardMapper">
+<mapper namespace="com.grgr.mapper.MyOrderListMapper">
 	<!-- 나의 주문 목록 조회 -->
 	<resultMap id="selectMyOrderListMap"
 		type="com.grgr.dto.MyOrderListDTO">
@@ -13,9 +13,10 @@
 		<result property="totalPrice" column="totalprice" />
 		<result property="productPrice" column="product_price" />
 		<result property="productTitle" column="product_title" />
+		<result property="productId" column="product_id" />
 	</resultMap>
 	<select id="selectMyOrderList" resultMap="selectMyOrderListMap"
-		parameterType="int">
+		parameterType="MyOrderListDTO">
 		SELECT
 		OP.order_no, op.order_group, op.order_quantity,
 		op.order_date, op.order_status,
@@ -31,7 +32,7 @@
 		userinfo U ON OP.uno = U.uno
 		WHERE
 		U.uno = ${uno} AND
-		OP.order_status != 1
+		OP.order_status = 1
 
 	</select>
 </mapper>

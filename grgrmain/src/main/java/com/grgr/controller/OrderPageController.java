@@ -53,16 +53,10 @@ public class OrderPageController {
 	
 	// 바로구매
 	@PostMapping("/product")
-	public ResponseEntity<String> porductOrderPage(@RequestBody OrderPage orderPage, HttpSession session) throws OrderInsertFailException {
+	public ResponseEntity<String> productOrderPage(@RequestBody OrderPage orderPage, HttpSession session) throws OrderInsertFailException {
 
-		orderPageService.addDirectPurchase(orderPage);
+		orderPageService.addDirectPurchase(orderPage, session);
 		session.setAttribute("totalPrice", orderPage.getTotalPrice());
 		return new ResponseEntity<String> ("success", HttpStatus.OK);
 	}
-
-
-	
-
-
-
 }

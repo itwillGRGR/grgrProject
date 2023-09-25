@@ -14,7 +14,7 @@ public class MyOrderListDTO {
 	private int uno;
 
 	/* 상품 번호 */
-	private int product_id;
+	private int productId;
 
 	/* 구매 수량 */
 	private int orderQuantity;
@@ -30,4 +30,6 @@ public class MyOrderListDTO {
 
 	/* 상품 이름 */
 	private String productTitle;
+	
+	private int orderStatus;
 }

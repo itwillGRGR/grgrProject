@@ -15,8 +15,10 @@ public interface OrderPageService {
 	void addOrderedItems(List<Integer> selectedItemList, int loginUno,HttpSession session)
 			throws CartNullException, CartDeleteFailException, OrderInsertFailException;
 
-	void addDirectPurchase(OrderPage orderPage) throws OrderInsertFailException;
+	
 	Map<String, Object> getOrderInfo(int loginUno);
 
 	OrderPage getOrderInfo(String orderGroup);
+
+	void addDirectPurchase(OrderPage orderPage, HttpSession session) throws OrderInsertFailException;
 }

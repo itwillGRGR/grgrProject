@@ -68,9 +68,11 @@
 									if(result == "success") {
 										//결제 성공 페이지로 이동
 										alert("결제 성공");
-									} else {
-										//결제 실패 페이지로 이동
-										alert("결제 취소");
+										
+									} else if(result == "forgery") {
+										alert("결제 forgery");
+									} else{
+										alert("결제 실패")
 									}
 								}, 
 								error: function(xhr) {

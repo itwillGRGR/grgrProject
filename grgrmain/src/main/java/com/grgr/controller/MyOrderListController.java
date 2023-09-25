@@ -1,6 +1,7 @@
 package com.grgr.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +24,8 @@ public class MyOrderListController {
 	public String orderList(Model model, HttpSession session) {
 		Integer uno = (Integer) session.getAttribute("loginUno");
 		List<MyOrderListDTO> myOrderList = myOrderListService.getMyOrderList(uno);
-		System.out.println(myOrderList);
+		System.out.println("myOrderList = " + myOrderList);
+		System.out.println("uno - " + uno);
 		model.addAttribute("myOrderList", myOrderList);
 		return "mypage/myOrderList";
 	}

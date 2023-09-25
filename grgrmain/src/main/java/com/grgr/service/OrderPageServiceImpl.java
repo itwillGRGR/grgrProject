@@ -58,7 +58,6 @@ public class OrderPageServiceImpl implements OrderPageService {
 			orderPage.setUno(cartDTO.getUno());
 			orderPage.setOrderQuantity(cartDTO.getProductCount());
 
-			session.setAttribute("orderGroup", orderGroup);
 			int result = orderPageDAO.insertOrderPage(orderPage);
 			if (result < 1) {
 				throw new OrderInsertFailException("주문목록에 담는 과정에 오류가 발생하였습니다.");
@@ -70,17 +69,20 @@ public class OrderPageServiceImpl implements OrderPageService {
 				throw new CartDeleteFailException("장바구니 삭제시에 예상치못한 오류가 발생하였습니다.");
 			}
 		}
+		session.setAttribute("orderGroup", orderGroup);
 	}
 	// 바로구매시 주문테이블에 저장하는 과정을 위한 서비스 클래스
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void addDirectPurchase(OrderPage orderPage) throws OrderInsertFailException {
+	public void addDirectPurchase(OrderPage orderPage, HttpSession session) throws OrderInsertFailException {
 		int orderGroup = orderPageDAO.selectLastOrderGroup() + 1;
 		orderPage.setOrderGroup(orderGroup);
 		int result = orderPageDAO.insertOrderPage(orderPage);
 		if(result<1) {
 			throw new OrderInsertFailException("주문목록에 담는 과정에 오류가 발생하였습니다.");
 		}
+		
+		session.setAttribute("orderGroup", orderGroup);
 		
 	}
 	

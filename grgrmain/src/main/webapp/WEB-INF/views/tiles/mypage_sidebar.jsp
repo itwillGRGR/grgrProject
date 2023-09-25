@@ -63,7 +63,7 @@
 	            <li><a href="<c:url value="/mypage/myCommentList"/>">내가 쓴 댓글</a></li>
 	            <li><a href="<c:url value="/mypage/myLikeList"/>">관심게시글</a></li>
 	            <li><a href="<c:url value="/cart/list"/>">장바구니</a></li>
-	            <li><a href="<c:url value="/"/>">주문목록</a></li>
+	            <li><a href="<c:url value='/mypage/myOrderList'/>">주문목록</a></li>
 	        </ul>
 	</aside>
     </c:when>

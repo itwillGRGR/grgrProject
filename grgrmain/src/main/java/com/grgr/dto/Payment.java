@@ -30,7 +30,6 @@ STATUS                 VARCHAR2(20)  - 결제상태
 public class Payment {
     private String impUid;
     private String merchantUid;
-    //private int uno;
     private Long amount;
     private String status;
 }

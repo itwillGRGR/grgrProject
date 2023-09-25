@@ -100,7 +100,6 @@
 						<div class="vertical-align">
 							<div class="table-cell">
 								<div class="modal-body">
-									<h2>&nbsp;&nbsp;끼리끼리 메뉴</h2>
 									<ul>
 										<hr>
 										<p>▶내 정보</p>
@@ -165,11 +164,8 @@
 						href="<c:url value="/info/medical"/>"> <img class="w-40 mr-10"
 							alt="병원정보" src="<c:url value="/images/hospital.png"/>" /><span>병원</span></a></li>
 				</ul>
+
 			</div>
-
-
-
-
 
 			<!-- / navbar-nav -->
 			<!-- / navbar-collapse -->
@@ -198,9 +194,8 @@
 								href="<c:url value='/main' />"><img
 									src="${pageContext.request.contextPath}/images/grgr_favicon.png"
 									alt="메인로고"></a></li>
-							<li class="nav-item w-120"><h5>
-									"${loginNickname }" 님 <br> 환영합니다
-								</h5></li>
+							<li class="nav-item w-120"><h5>"${loginNickname }"님
+									환영합니다</h5></li>
 						</c:if>
 						<!-- 관리자 페이지 -->
 						<c:if test="${loginUno!=null && loginUserStatus==1 }">
@@ -270,3 +265,5 @@
 		</nav>
 		<!-- / split-navbar -->
 	</div>
+
+

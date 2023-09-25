@@ -20,6 +20,6 @@ public class ProductCartDTO {
 	private int productCount; // 상품수량
 
 	private String productTitle; // 상품명
-	private int productPrice; // 가격
+	private Long productPrice; // 가격
 
 }
