@@ -1,7 +1,7 @@
 package com.grgr.controller;
 
-import javax.servlet.http.HttpSession;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,8 +30,7 @@ public class PaymentsController {
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
     @ResponseBody
     public String pay(@RequestBody Payment payment, HttpSession session) {
-    	Integer merchantUid=(Integer)session.getAttribute("orderGroup");
-    	Integer amount=(Integer)session.getAttribute("totalPrice");
+    	
     	
             return "ok";
        
@@ -47,9 +46,9 @@ public class PaymentsController {
   		//토큰과 결제고유값을 전달하여 API를 이용하여 결제정보를 반환받아 저장
   		Payment returnPayment=paymentService.getPayment(accessToken, payment.getImpUid());
   		
+
   		//세션에 저장된 결제 금액을 반환받아 저장
-  		Long beforeAmount=(Long)session.getAttribute(payment.getMerchantUid());
-  		session.removeAttribute(payment.getMerchantUid());
+  		Long beforeAmount=Long.parseLong((Integer)session.getAttribute("totalPrice")+"");
   		
   		//결제된 결제금액을 반환받아 저장
   		Long amount=returnPayment.getAmount();

@@ -30,5 +30,5 @@ public class OrderPage {
 	private int orderStatus;//주문 상태(1: 결제대기 2: 결제중, 3: 결제완료)
 	private int orderQuantity;//주문 수량
 	private Date orderUpdate;//주문상태변경일
-	private int totalPrice;
+	private Long totalPrice;
 }
