@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.grgr.dto.MyBoardWriteDTO;
 import com.grgr.dto.MyCommentDTO;
+import com.grgr.dto.MyOrderListDTO;
 import com.grgr.dto.UserVO;
 import com.grgr.service.UserService;
 
@@ -61,13 +62,13 @@ public class UserProfileController {
 		Integer loginUno = (Integer) session.getAttribute("loginUno");
 		model.addAttribute("user", userService.userProfile(loginUno));
 		model.addAttribute("loginUno", loginUno);
-		
+
 		Integer userStatus = (Integer) session.getAttribute("loginUserStatus");
 		if (userStatus == 4) {
-	        // userStatus가 4라면 강제로 mypage/userProfile로 이동
-	        return "redirect:/mypage/userProfile";
-	    }
-		
+			// userStatus가 4라면 강제로 mypage/userProfile로 이동
+			return "redirect:/mypage/userProfile";
+		}
+
 		return "mypage/updateUserProfile";
 	}
 
@@ -106,7 +107,7 @@ public class UserProfileController {
 	public void myCommentListGet(HttpSession session, @RequestParam(defaultValue = "1") int pageNum, Model model) {
 		Integer loginUno = (Integer) session.getAttribute("loginUno");
 		Map<String, Object> map = userService.getCommentList(loginUno, pageNum);
-		
+
 		model.addAttribute("pager", map.get("pager"));
 		model.addAttribute("commentList", map.get("commentList"));
 
@@ -121,7 +122,7 @@ public class UserProfileController {
 		model.addAttribute("boardWriteList", map.get("boardWriteList"));
 
 	}
-	
+
 	/* 관심게시글 조회 페이지 이동 */
 	@GetMapping("/myLikeList")
 	public void myLikeListGet(HttpSession session, @RequestParam(defaultValue = "1") int pageNum, Model model) {
@@ -130,16 +131,24 @@ public class UserProfileController {
 		model.addAttribute("pager", map.get("pager"));
 		model.addAttribute("likeList", map.get("likeList"));
 	}
-	
+
 	/* 휴면계정 안내 및 활성화 */
 	@GetMapping("/activateUser")
 	public String activateUser(HttpSession session) {
-		if((Integer)session.getAttribute("loginActive")!=2) {
+		if ((Integer) session.getAttribute("loginActive") != 2) {
 			return "/404";
 		}
 		return "/mypage/activateUser";
 	}
-	
-	
 
+	/* 내가 쓴 댓글 조회페이지 이동 */
+	@GetMapping("/myOrderList")
+	public String myOrderListGet(HttpSession session, Model model) {
+		MyOrderListDTO orderList = new MyOrderListDTO();
+		Integer loginUno = (Integer) session.getAttribute("loginUno");
+		orderList.setUno(loginUno);
+		System.out.println("로그인 번호" + loginUno);
+		model.addAttribute("orderList", userService.getMyOrderList(loginUno));
+		return "/mypage/myOrderList";
+	}
 }

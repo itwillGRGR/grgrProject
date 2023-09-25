@@ -22,6 +22,7 @@ import com.grgr.dao.UserDAO;
 import com.grgr.dto.MyBoardWriteDTO;
 import com.grgr.dto.MyCommentDTO;
 import com.grgr.dto.MyLike;
+import com.grgr.dto.MyOrderListDTO;
 import com.grgr.dto.ReportAdmin;
 import com.grgr.dto.UserVO;
 import com.grgr.util.AdminPager;
@@ -341,15 +342,22 @@ public class UserServiceImpl implements UserService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", loginUno);
 		map.put("email", email);
-		
-		
-		
+
 		return userDAO.updateUserActivate(map);
 	}
 
 	@Override
 	public int modifyLastLoginDate(UserVO user) {
 		return userDAO.updateLastLoginDate(user);
+	}
+
+	@Override
+	public MyOrderListDTO getMyOrderList(int uno) {
+
+		System.out.println(uno);
+		MyOrderListDTO orderList = userDAO.selectMyOrderList(uno);
+
+		return orderList;
 	}
 
 }

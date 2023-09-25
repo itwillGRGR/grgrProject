@@ -35,7 +35,8 @@
 
 	<update id="updateLastLoginDate"
 		parameterType="com.grgr.dto.UserVO">
-		UPDATE USERINFO SET LAST_LOGIN = SYSDATE WHERE UNO = #{uno}
+		UPDATE USERINFO SET LAST_LOGIN = SYSDATE WHERE UNO =
+		#{uno}
 	</update>
 
 
@@ -291,7 +292,8 @@
 		NICKNAME
 		FROM INFO_BOARD
 		JOIN USERINFO ON INFO_BOARD.UNO = USERINFO.UNO
-		WHERE INFO_BOARD.UNO = #{uno} AND (INFO_BOARD.INFO_BLINDSTATE = 1 or INFO_BOARD.INFO_BLINDSTATE = 4)
+		WHERE INFO_BOARD.UNO = #{uno} AND (INFO_BOARD.INFO_BLINDSTATE = 1 or
+		INFO_BOARD.INFO_BLINDSTATE = 4)
 
 		UNION
 		ALL
@@ -307,11 +309,14 @@
 		USERINFO.NICKNAME AS NICKNAME
 		FROM
 		QNA_BOARD
-		JOIN USERINFO ON QNA_BOARD.UNO = USERINFO.UNO
+		JOIN USERINFO ON
+		QNA_BOARD.UNO = USERINFO.UNO
 		WHERE
-		QNA_BOARD.UNO = #{uno} AND (QNA_BOARD.QNA_BLINDSTATE = 1 or QNA_BOARD.QNA_BLINDSTATE = 4)
+		QNA_BOARD.UNO = #{uno} AND
+		(QNA_BOARD.QNA_BLINDSTATE = 1 or QNA_BOARD.QNA_BLINDSTATE = 4)
 
-		UNION ALL
+		UNION
+		ALL
 
 		SELECT
 		FREE_BOARD.UNO AS UNO,
@@ -326,7 +331,8 @@
 		NICKNAME
 		FROM FREE_BOARD
 		JOIN USERINFO ON FREE_BOARD.UNO = USERINFO.UNO
-		WHERE FREE_BOARD.UNO = #{uno} AND (FREE_BOARD.FREE_BLINDSTATE = 1 or FREE_BOARD.FREE_BLINDSTATE = 4)
+		WHERE FREE_BOARD.UNO = #{uno} AND (FREE_BOARD.FREE_BLINDSTATE = 1 or
+		FREE_BOARD.FREE_BLINDSTATE = 4)
 
 		UNION
 		ALL
@@ -593,7 +599,8 @@
 
 	<!-- 휴면계정 전환 -->
 	<update id="updateUserDisactivate"> UPDATE USERINFO SET (ACTIVE = 2)
-		WHERE MONTHS_BETWEEN(SYSDATE, LAST_LOGIN) >= 3 AND ACTIVE = 1
+		WHERE
+		MONTHS_BETWEEN(SYSDATE, LAST_LOGIN) >= 3 AND ACTIVE = 1
 	</update>
 	<!-- <update id="updateUserDisactivate"> UPDATE USERINFO SET ACTIVE = 2 
 		WHERE TRUNC(SYSDATE) - TRUNC(LAST_LOGIN) >= 3 AND ACTIVE = 1 </update> -->
@@ -604,5 +611,35 @@
 		EMAIL = #{email}
 		AND ACTIVE = 2
 	</update>
+
+	<!-- 나의 주문 목록 조회 -->
+	<resultMap id="selectMyOrderListMap"
+		type="com.grgr.dto.MyOrderListDTO">
+		<result property="uno" column="UNO" />
+		<result property="orderNo" column="order_no" />
+		<result property="orderGroup" column="order_group" />
+		<result property="orderQuantity" column="order_quantity" />
+		<result property="orderDate" column="order_date" />
+		<result property="orderStatus" column="order_status" />
+		<result property="totalPrice" column="totalprice" />
+		<result property="productPrice" column="product_price" />
+		<result property="productTitle" column="product_title" />
+	</resultMap>
+	<select id="selectMyOrderList" resultMap="selectMyOrderListMap"
+		parameterType="int">
+		SELECT
+		OP.order_no, op.order_group, op.order_quantity, op.order_date, op.order_status,
+		op.totalprice,
+		PB.product_price, pb.product_title
+		FROM
+		orderpage OP
+		JOIN
+		product_board PB ON OP.product_id = PB.product_id
+		JOIN
+		userinfo U ON OP.uno = U.uno 
+		WHERE
+		U.uno = ${uno} AND OP.order_status != 1
+
+	</select>
 
 </mapper>

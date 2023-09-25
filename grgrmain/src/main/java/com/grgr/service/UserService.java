@@ -1,7 +1,11 @@
 package com.grgr.service;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.grgr.dto.MyOrderListDTO;
 import com.grgr.dto.UserVO;
 
 public interface UserService {
@@ -80,4 +84,7 @@ public interface UserService {
 	
 	/* 마지막 로그인 날짜 변경 */
 	int modifyLastLoginDate(UserVO user);
+	
+	/* 나의 주문목록 조회 */
+	MyOrderListDTO getMyOrderList(int uno);
 }

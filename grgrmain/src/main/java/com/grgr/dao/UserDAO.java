@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.grgr.dto.MyBoardWriteDTO;
 import com.grgr.dto.MyCommentDTO;
 import com.grgr.dto.MyLike;
+import com.grgr.dto.MyOrderListDTO;
 import com.grgr.dto.ReportAdmin;
 import com.grgr.dto.UserVO;
 
@@ -89,4 +90,7 @@ public interface UserDAO {
 	
 	 /* 마지막 로그인 날짜 변경 */
     int updateLastLoginDate(UserVO user);
+    
+    /* 나의 주문목록 조회 */
+	MyOrderListDTO selectMyOrderList(@Param("uno") int uno);
 }

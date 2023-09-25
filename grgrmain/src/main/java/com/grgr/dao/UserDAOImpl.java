@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.grgr.dto.MyBoardWriteDTO;
 import com.grgr.dto.MyCommentDTO;
 import com.grgr.dto.MyLike;
+import com.grgr.dto.MyOrderListDTO;
 import com.grgr.dto.ReportAdmin;
 import com.grgr.dto.UserVO;
 import com.grgr.mapper.UserMapper;
@@ -177,6 +178,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int updateLastLoginDate(UserVO user) {
 		return sqlSession.getMapper(UserMapper.class).updateLastLoginDate(user);
+	}
+
+	@Override
+	public MyOrderListDTO selectMyOrderList(int uno) {
+		return sqlSession.getMapper(UserMapper.class).selectMyOrderList(uno);
 	}
 
 }
