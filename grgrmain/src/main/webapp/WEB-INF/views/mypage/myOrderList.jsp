@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
-<!-- Favicon -->
-<link rel="icon"
-	href="${pageContext.request.contextPath}/images/grgr_logo.png">
-</head>
+
 <style>
 .va-middle {
 	font-size: 20px;
@@ -23,94 +21,137 @@
 	font-weight: 'bold';
 }
 
-.btn-outline-primary {
-	font-size: 18px; /* 원하는 크기로 설정 */
+.board-images {
+	width: 100px;
 }
 
-.selected {
-	background-color: #007bff;
-	//
-	선택된
-	배경색
-	color
-	:
-	#ffffff;
-	//
-	선택된
-	텍스트
-	색상
+#comment-reply {
+	margin-bottom: 20px; /* 아래쪽 여백을 20px로 설정 */
+	clear: both;
+}
+
+.comment-style {
+	font-size: 15px;
+	font-weight: normal;
+}
+
+.comment {
+	border-top: 1px solid #97989d;
+}
+
+.table-container table {
+	margin-bottom: 60px; /* 원하는 간격 크기(px)로 조절하세요 */
 }
 </style>
+</head>
+
 <body>
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/tiles/header.jsp" />
+	<!-- 배너 -->
+	<c:set var="boardName" value="주문 목록" />
+	<header class="xl bg-img bg-fixed"
+		style="background-color: white; padding-bottom: 50px; padding-top: 80px;">
+		<div class="container text-center" style="font-size: 100%;">
+			<h1 class="page-title">주문 목록</h1>
+
+		</div>
+		<!-- / container -->
+	</header>
+
 	<div id="preloader">
 		<div class="preloader">
 			<span></span> <span></span>
 		</div>
 	</div>
-	<!-- 배너 -->
-	<c:set var="boardName" value="주문 목록" />
-	<header class="xl bg-img bg-fixed"
-		style="height: 300px; padding-top: 200px;">
-		<div class="container text-center">
-			<h1 class="page-title">주문목록</h1>
+
+	<div id="top"></div>
+	<!-- / top -->
+	<section class="lg" style="padding-top: 30px;">
+		<div class="container">
+			<div class="promo-box">
+
+				<!-- / nav tabs -->
+			</div>
+			<!-- / tab-content -->
 		</div>
-		<!-- / container -->
-	</header>
 
+		<br>
 
-	<div class="container">
-		<div class="row">
-
-			<jsp:include page="/WEB-INF/views/tiles/sidebar.jsp" />
-
-			<!-- Main Content -->
-			<main class="main-content col-md-10">
-
-				<p class="row portfolio project-grid lightbox list-unstyled mb-0"
-					id="grid" style="clear: both">
-					<!--====================================================================================================  -->
-					<!-- project : 게시글 list 출력 -->
-					<c:forEach items="${myOrderList}" var="myOrderList">
-						<!-- &pageNum=${pageNum} -->
-						<div class="promo-box">
-							<div class="cta p-0">
-								<div class="row v-center">
-									<!-- / column -->
-									<div class="col-lg-12 text-left tablet-lg-center">
-										<p class="mb-20">상품명: ${myOrderList.productTitle}</p>
-										<p class="lead mb-20">가격: ${myOrderList.productPrice} 원</p>
-										<p class="lead mb-20">구매 수량: ${myOrderList.orderQuantity}
-											개</p>
-										<p class="fs-16 post-meta-small mt-15 mb-0"
-											style="text-align: right">
-											<i class="fas fa-user mr-5"></i>주문 상태: ${myOrderList.orderStatus} <span
-												class="m-x-10 text-muted">|</span> <i
-												class="far fa-calendar-alt mr-5"></i>주문 일자:
-											<fmt:formatDate value="${myOrderList.orderDate }"
-												pattern="yyyy-MM-dd HH:mm:ss" />
-
-										</p>
-									</div>
-									<!-- / column -->
-								</div>
-								<!-- / row -->
+		<div class="container" style="text-align: center;">
+			<div class="row">
+				<div class="col-lg-12 tablet-lg-top-30 page-content">
+					<div class="project-post">
+						<div class="page-content">
+							<!-- project: 장바구니 list 출력 -->
+							<c:set var="i" value="0" />
+							<c:set var="currentOrderGroup" value="" />
+							<div class="table-container">
+								<c:forEach items="${myOrderList}" var="myOrder">
+									<c:choose>
+										<c:when test="${myOrder.orderGroup != currentOrderGroup}">
+											<!-- 새로운 주문 번호인 경우 새로운 테이블 시작 -->
+											<c:set var="currentOrderGroup" value="${myOrder.orderGroup}" />
+											<c:set var="totalPrice" value="0" />
+											<!-- 새로운 주문 번호 테이블마다 totalPrice 초기화 -->
+											<table class="table table-xl">
+												<thead class="thead-light">
+													<tr>
+														<th colspan="4">주문번호: ${myOrder.orderGroup}</th>
+													</tr>
+													<tr>
+														<th width="100">상품명</th>
+														<th width="100">수량</th>
+														<th width="100">상품금액</th>
+														<th width="100">구매일자</th>
+													</tr>
+												</thead>
+												</c:when>
+												<c:otherwise>
+													<!-- 주문 번호가 같은 경우 이전 테이블 닫지 않음 -->
+												</c:otherwise>
+												</c:choose>
+												<tr>
+													<td width="100">${myOrder.productTitle}</td>
+													<td width="100">${myOrder.orderQuantity}</td>
+													<td width="100">${myOrder.productPrice}</td>
+													<td width="100">${myOrder.orderDate}</td>
+												</tr>
+												<c:set var="totalPrice"
+													value="${totalPrice + (myOrder.orderQuantity * myOrder.productPrice)}" />
+												<!-- 총 가격 누적 -->
+												<c:if
+													test="${i == myOrderList.size() - 1 || myOrder.orderGroup != myOrderList[i + 1].orderGroup}">
+													<!-- 마지막 주문 번호 또는 다음 주문 번호가 다른 경우 테이블 닫기 -->
+													<!-- 주문 번호가 같은 경우 총 가격 출력 -->
+													<table class="table table-xl">
+														<tr>
+															<td colspan="2">총 가격</td>
+															<td colspan="2" class="text-right">${totalPrice}</td>
+														</tr>
+													</table>
+												</c:if>
+												<c:set var="i" value="${i + 1}" />
+								</c:forEach>
 							</div>
-							<!-- / cta -->
+							<!-- / owl-carousel -->
 						</div>
-						<!-- / promo-box -->
-
-					</c:forEach>
-					<!--====================================================================================================  -->
-				</p>
-
-				<!-- / pagination-center -->
-			</main>
+						<!-- / page-content -->
+					</div>
+					<!-- / project-post -->
+				</div>
+				<!-- / column -->
+			</div>
+			<!-- / row -->
 		</div>
-	</div>
 
-	<a href="#top" class="scroll-to-top is-visible smooth-scroll"
+
+
+
+	</section>
+
+
+	<a href="#top" class="scroll-to-top is-hidden smooth-scroll"
 		data-nav-status="toggle"><i class="fas fa-chevron-up"></i></a>
 
 	<!-- footer 영역 -->
@@ -133,76 +174,60 @@
 	<script src="${pageContext.request.contextPath}/assets/js/hide-nav.js"></script>
 	<!-- / hide nav -->
 
-	<!-- portfolio script -->
+	<!-- form validation -->
 	<script
-		src="${pageContext.request.contextPath}/assets/js/jquery.shuffle.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/portfolio.js"></script>
+		src="${pageContext.request.contextPath}/assets/js/jquery.validate.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/js/form-validation.js"></script>
+	<!-- end of form validation -->
+
+	<!-- Owl Carousel -->
+	<script
+		src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
 	<script>
-		$(document).ready(
-				function() {
+		$('#product-carousel').owlCarousel({
+			loop : true,
+			margin : 0,
+			nav : false,
+			dots : true,
+			items : 1,
+			animateIn : 'fadeIn',
+			animateOut : 'fadeOut'
+		});
+	</script>
+	<!-- / Owl Carousel -->
 
-					var keywordInput = $('input[name="searchKeyword"]');
-					$('#search-button').click(
-							function() {
-								// 선택한 검색 유형과 키워드를 가져옵니다.
-								var searchType = $('#select').val();
-								var searchKeyword = keywordInput.val();
-								var pageNum = $('input[name="pageNum"]').val();
 
-								if (searchKeyword === '') {
-									keywordInput.val('검색어를 입력하지 않으셨습니다.'); // 값을 직접 변경
-									keywordInput.css('color', 'red'); // 텍스트 색상 변경
-									return;
-								} else {
-
-									keywordInput.css('color', 'black'); // 일반 색상으로 되돌림
-								}
-
-								// url 생성
-								var url = "list?pageNum=" + pageNum
-										+ "&searchType=" + searchType
-										+ "&searchKeyword=" + searchKeyword;
-
-								//리다이렉트합니다.
-								window.location.href = url;
-							});
-
-					keywordInput.focus(function() {
-						if (keywordInput.val() === '검색어를 입력하지 않으셨습니다.') {
-							keywordInput.val(''); // 오류 메시지를 지움
-							keywordInput.css('color', 'black'); // 일반 텍스트 색상으로 되돌림
-						}
-					});
-
-					if (Modernizr.touch) {
-						// show the close overlay button
-						$('.close-overlay').removeClass('hidden');
-						// handle the adding of hover class when clicked
-						$('.img').click(function(e) {
-							if (!$(this).hasClass('hover')) {
-								$(this).addClass('hover');
-							}
-						});
-						// handle the closing of the overlay
-						$('.close-overlay').click(function(e) {
-							e.preventDefault();
-							e.stopPropagation();
-							if ($(this).closest('.img').hasClass('hover')) {
-								$(this).closest('.img').removeClass('hover');
-							}
-						});
-					} else {
-						// handle the mouseenter functionality
-						$('.img').mouseenter(function() {
-							$(this).addClass('hover');
-						})
-						// handle the mouseleave functionality
-						.mouseleave(function() {
-							$(this).removeClass('hover');
-						});
+	<script>
+		$(document).ready(function() {
+			if (Modernizr.touch) {
+				// show the close overlay button
+				$('.close-overlay').removeClass('hidden');
+				// handle the adding of hover class when clicked
+				$('.img').click(function(e) {
+					if (!$(this).hasClass('hover')) {
+						$(this).addClass('hover');
 					}
 				});
+				// handle the closing of the overlay
+				$('.close-overlay').click(function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+					if ($(this).closest('.img').hasClass('hover')) {
+						$(this).closest('.img').removeClass('hover');
+					}
+				});
+			} else {
+				// handle the mouseenter functionality
+				$('.img').mouseenter(function() {
+					$(this).addClass('hover');
+				})
+				// handle the mouseleave functionality
+				.mouseleave(function() { // 추가된 부분
+					$(this).removeClass('hover');
+				}); // 추가된 부분
+			}
+		});
 	</script>
-	<!-- / portfolio script -->
 </body>
 </html>

@@ -18,21 +18,22 @@
 	<select id="selectMyOrderList" resultMap="selectMyOrderListMap"
 		parameterType="MyOrderListDTO">
 		SELECT
-		OP.order_no, op.order_group, op.order_quantity,
-		op.order_date, op.order_status,
-		op.totalprice,
-		PB.product_price,
-		pb.product_title
-		FROM
-		orderpage OP
-		JOIN
-		product_board PB ON OP.product_id
-		= PB.product_id
-		JOIN
-		userinfo U ON OP.uno = U.uno
-		WHERE
-		U.uno = ${uno} AND
-		OP.order_status = 1
+    OP.order_no, OP.order_group, OP.order_quantity,
+    OP.order_date, OP.order_status,
+    OP.totalprice,
+    PB.product_price,
+    PB.product_title
+FROM
+    orderpage OP
+JOIN
+    product_board PB ON OP.product_id = PB.product_id
+JOIN
+    userinfo U ON OP.uno = U.uno
+JOIN
+    payment P ON TO_CHAR(OP.order_group) = TO_CHAR(P.MERCHANT_UID)
+WHERE
+    U.uno = ${uno}
+    AND OP.order_status = 1 order by OP.order_group desc
 
 	</select>
 </mapper>
