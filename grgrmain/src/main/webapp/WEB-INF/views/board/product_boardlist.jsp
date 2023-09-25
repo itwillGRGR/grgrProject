@@ -52,9 +52,11 @@
 		<div class="container text-center">
 			<h1 class="page-title">Market</h1>
 			<p class="w-50 m-x-auto mb-30" style="color: white;">판매게시판</p>
+			<!-- 불필요하다 판단하여 주석처리 함
 			<a href="#start" class="btn btn-sm btn-primary smooth-scroll"> <i
 				class="fas fa-shopping-cart mr-5"></i> <span>쇼핑하러 가기</span>
 			</a>
+			 -->
 		</div>
 		<!-- / container -->
 	</header>
@@ -67,26 +69,10 @@
 
 			<!-- Main Content -->
 			<main class="main-content col-md-10">
-
-
 				<section id="start" class="lg page-section">
-					<!-- <ul class="portfolio-filter list-inline text-center mb-30">
-			<li id="portfolio-filter-list"><a href="#">지역 : 강남구 </a></li>
-			<li id="portfolio-filter-list"><a href="#" data-group="all"
-				class="active ml-2">전체</a></li>
-			<li id="portfolio-filter-list"><a href="#" data-group="food">맛집후기</a>
-			</li>
-			<li id="portfolio-filter-list"><a href="#" data-group="market">동네후기</a>
-			</li>
-			<li id="portfolio-filter-list"><a href="#" data-group="living">생활정보</a>
-			</li>
-			<li id="portfolio-filter-list"><a href="#" data-group="event">이벤트</a>
-			</li>
-		</ul> -->
-
 					<!-- 검색 -->
 					<!-- select -->
-					<div class="card">
+					<div class="card" style="margin-bottom: 20px;">
 						<div class="card-body"
 							style="padding-bottom: 20px; padding-top: 20px; padding-left: 50px; padding-right: 50px;">
 							<form action="list" method="get"
@@ -135,36 +121,36 @@
 					</c:if>
 
 					<!-- project : 게시글 list 출력 -->
-					<div class="container" style="clear: both">
+					<div class="container" style="clear: both; padding-top: 10px;">
 						<div class="row justify-content-center">
 							<div class="col-lg-8 col-xl-12 tablet-lg-top-30 page-content">
 								<div class="row">
 									<c:set var="i" value="0" />
 									<c:forEach var="productBoardList" items="${productBoardList}">
 										<div class="col-sm-6 col-xl-3">
-											<div class="card">
-												<div class="full-height-cards card-body text-center p-y-30" style="">
+											 <div class="card">
+												<div class="full-height-cards card-body text-center p-y-30" style="height: 368px;">
 													<img
 														src="${pageContext.request.contextPath}/upload/${fileList[i]}"
 														alt="Thumbnail" class="mb-30 rounded raised-sm">
 													<c:set var="i" value="${i+1 }" />
-													<p class="card-title product-title fs-20">
+													<p class="card-title product-title fs-20" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
 														<a
 															href="<c:url value='/productboard/get${pager.searchCondition.getQueryString()}&productId=${productBoardList.productId}'/>"
 															class="title-link primary-hover fs-20"> <c:out
 																value="${productBoardList.productTitle}" />
 														</a>
 													</p>
-													<p class="price-block text-primary">
+													<p class="price-block text-primary" style="font-size: 16px;">
 														₩
 														<c:out value="${productBoardList.productPrice}" />
 													</p>
-													<p class="product-regdate">
+													<p class="product-regdate" style="font-size: 14px;">
 														<i class="far fa-calendar-alt mr-5"></i>
 														<fmt:formatDate value="${productBoardList.productRegdate}"
 															pattern="yyyy-MM-dd HH:mm:ss" />
 													</p>
-
+													<!-- 불필요하다 판단하여 주석처리 함
 													<div class="product-card-footer">
 														<a
 															href="<c:url value='/productboard/get${pager.searchCondition.getQueryString()}&productId=${productBoardList.productId}'/>"
@@ -173,6 +159,7 @@
 													</span>
 														</a>
 													</div>
+													 -->
 													<!-- / product-card-footer -->
 												</div>
 												<!-- / card-body -->
